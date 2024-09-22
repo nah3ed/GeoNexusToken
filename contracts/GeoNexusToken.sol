@@ -11,7 +11,7 @@ contract GeoNexusToken is ERC20, ERC20Capped, ERC20Burnable {
     address payable owner;
     uint256 public blockReward;
 
-    constructor(uint256 cap, uint reward) ERC20("GeoNexus Token", /"GNT") ERC20Capped(cap * (10 ** decimals())) {
+    constructor(uint256 cap, uint reward) ERC20("GeoNexus Token", "GNT") ERC20Capped(cap * (10 ** decimals())) {
         _mint(msg.sender, 69000000 * (10 ** decimals()));
         owner = payable(msg.sender);
         blockReward = reward * (10 ** decimals());
@@ -49,8 +49,8 @@ contract GeoNexusToken is ERC20, ERC20Capped, ERC20Burnable {
         require(msg.sender == owner, "You are not the owner")
 
     // Access control modifier
-    modifier onlyOwner {
-        require(msg.sender == owner, "Only the contract owner can call this function");
+    modifier onlyOwner() {
+        require(_owner == _msgSender(), "Ownable: caller is not the owner");
         _;
-    }
+    }  
 }
