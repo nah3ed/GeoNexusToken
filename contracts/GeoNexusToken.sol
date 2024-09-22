@@ -46,11 +46,14 @@ contract GeoNexusToken is ERC20, ERC20Capped, ERC20Burnable {
 
     // Contract destructor
     function destroySmartContract(address payable _to) public {
-        require(msg.sender == owner, "You are not the owner")
+        require(msg.sender == owner, "You are not the owner");
+        selfdestruct(_to);
+    }
 
     // Access control modifier
     modifier onlyOwner() {
         require(_owner == _msgSender(), "Ownable: caller is not the owner");
         _;
-    }  
+    }
+
 }
